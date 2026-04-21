@@ -1,0 +1,22 @@
+package task4_collections;
+
+import java.util.*;
+
+public class EmployeeList {
+
+    public static void main(String[] args) {
+
+        // Create ArrayList
+        List<String> employees = new ArrayList<>();
+
+        // Add employee names
+        employees.add("Arun");
+        employees.add("Kumar");
+        employees.add("Ravi");
+
+        // Display in uppercase
+        for (String emp : employees) {
+            System.out.println(emp.toUpperCase());
+        }
+    }
+}

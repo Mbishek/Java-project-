@@ -1,0 +1,111 @@
+package task7_swing;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class Payroll extends JFrame implements ActionListener {
+
+    JTextField nameField, basicField, hraField, daField, netField;
+    JButton calcBtn, clearBtn, exitBtn;
+
+    public Payroll() {
+
+        setTitle("Payroll Management System");
+        setSize(450, 350);
+        setLayout(null);
+
+        getContentPane().setBackground(new Color(240, 248, 255));
+
+        JLabel title = new JLabel("Payroll Management System");
+        title.setFont(new Font("Arial", Font.BOLD, 18));
+        title.setBounds(80, 20, 300, 30);
+        add(title);
+
+        JLabel l1 = new JLabel("Employee Name:");
+        JLabel l2 = new JLabel("Basic Salary:");
+        JLabel l3 = new JLabel("HRA (20%):");
+        JLabel l4 = new JLabel("DA (10%):");
+        JLabel l5 = new JLabel("Net Salary:");
+
+        l1.setBounds(50, 70, 120, 25);
+        l2.setBounds(50, 100, 120, 25);
+        l3.setBounds(50, 130, 120, 25);
+        l4.setBounds(50, 160, 120, 25);
+        l5.setBounds(50, 190, 120, 25);
+
+        add(l1); add(l2); add(l3); add(l4); add(l5);
+
+        nameField = new JTextField();
+        basicField = new JTextField();
+        hraField = new JTextField();
+        daField = new JTextField();
+        netField = new JTextField();
+
+        nameField.setBounds(180, 70, 180, 25);
+        basicField.setBounds(180, 100, 180, 25);
+        hraField.setBounds(180, 130, 180, 25);
+        daField.setBounds(180, 160, 180, 25);
+        netField.setBounds(180, 190, 180, 25);
+
+        add(nameField);
+        add(basicField);
+        add(hraField);
+        add(daField);
+        add(netField);
+
+        calcBtn = new JButton("Calculate");
+        clearBtn = new JButton("Clear");
+        exitBtn = new JButton("Exit");
+
+        calcBtn.setBounds(50, 240, 100, 30);
+        clearBtn.setBounds(170, 240, 100, 30);
+        exitBtn.setBounds(290, 240, 100, 30);
+
+        add(calcBtn);
+        add(clearBtn);
+        add(exitBtn);
+
+        calcBtn.addActionListener(this);
+        clearBtn.addActionListener(this);
+        exitBtn.addActionListener(this);
+
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        try {
+            if (e.getSource() == calcBtn) {
+
+                double basic = Double.parseDouble(basicField.getText());
+
+                double hra = basic * 0.20;
+                double da = basic * 0.10;
+                double net = basic + hra + da;
+
+                hraField.setText(String.valueOf(hra));
+                daField.setText(String.valueOf(da));
+                netField.setText(String.valueOf(net));
+            }
+
+            if (e.getSource() == clearBtn) {
+                nameField.setText("");
+                basicField.setText("");
+                hraField.setText("");
+                daField.setText("");
+                netField.setText("");
+            }
+
+            if (e.getSource() == exitBtn) {
+                System.exit(0);
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Invalid Input!");
+        }
+    }
+
+    public static void main(String[] args) {
+        new Payroll();
+    }
+}

@@ -1,0 +1,64 @@
+package task6_networking;
+
+import java.io.*;
+import java.net.*;
+
+public class PayrollServer {
+
+    public static void main(String[] args) throws Exception {
+
+        ServerSocket server = new ServerSocket(5000);
+        System.out.println("Payroll Server Started...");
+
+        Socket socket = server.accept();
+        System.out.println("Client Connected");
+
+        BufferedReader input = new BufferedReader(
+                new InputStreamReader(socket.getInputStream()));
+
+        PrintWriter output = new PrintWriter(
+                socket.getOutputStream(), true);
+
+        String request = input.readLine();
+        System.out.println("Client Request: " + request);
+
+        output.println("Employee Salary: 3000");
+
+        socket.close();
+        server.close();
+    }
+}
+package task6_networking;
+
+import java.net.*;
+import java.util.Scanner;
+
+public class UDPServer {
+
+    public static void main(String[] args) throws Exception {
+
+        DatagramSocket server = new DatagramSocket(6000);
+        System.out.println("UDP Server Started...");
+
+        // Take input from user
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter Name: ");
+        String name = sc.nextLine();
+
+        System.out.print("Enter Salary: ");
+        double salary = sc.nextDouble();
+
+        String data = name + " " + salary;
+        byte[] sendData = data.getBytes();
+
+        InetAddress ip = InetAddress.getByName("localhost");
+
+        DatagramPacket sendPacket = new DatagramPacket(
+                sendData, sendData.length, ip, 6001);
+
+        server.send(sendPacket);
+
+        server.close();
+    }
+}

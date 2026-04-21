@@ -1,0 +1,34 @@
+package task1_basics;
+
+public class Employee {
+    int empId;
+    String empName;
+    double basicSalary;
+
+    // Constructor
+    public Employee(int id, String name, double salary) {
+        empId = id;
+        empName = name;
+        basicSalary = salary;
+    }
+
+    // Method to calculate salary (20% increment)
+    public double calculateSalary() {
+        return basicSalary + (basicSalary * 0.2);
+    }
+
+    // Display method
+    public void display() {
+        System.out.println("ID: " + empId);
+        System.out.println("Name: " + empName);
+        System.out.println("Salary: " + calculateSalary());
+    }
+}
+package task1_basics;
+
+public class MainApp {
+    public static void main(String[] args) {
+        Employee emp = new Employee(101, "Arun", 25000);
+        emp.display();
+    }
+}

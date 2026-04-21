@@ -1,0 +1,57 @@
+package task8_jdbc;
+
+import java.sql.*;
+import java.util.Scanner;
+
+public class PayrollJDBC {
+
+    public static void main(String[] args) {
+
+        String url = "jdbc:mysql://localhost:3306/payroll";
+        String user = "root";
+        String password = "password";
+
+        try {
+            // Load MySQL Driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Establish Connection
+            Connection con = DriverManager.getConnection(url, user, password);
+
+            Scanner sc = new Scanner(System.in);
+
+            // Input from user
+            System.out.print("Enter Employee ID: ");
+            int id = sc.nextInt();
+            sc.nextLine(); // clear buffer
+
+            System.out.print("Enter Employee Name: ");
+            String name = sc.nextLine();
+
+            System.out.print("Enter Salary: ");
+            double salary = sc.nextDouble();
+
+            // SQL Query
+            String query = "INSERT INTO employee (id, name, salary) VALUES (?, ?, ?)";
+
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setInt(1, id);
+            pst.setString(2, name);
+            pst.setDouble(3, salary);
+
+            int rows = pst.executeUpdate();
+
+            if (rows > 0) {
+                System.out.println("Record inserted successfully!");
+            }
+
+            // Close resources
+            pst.close();
+            con.close();
+            sc.close();
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}

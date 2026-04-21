@@ -1,0 +1,29 @@
+package task3_exception;
+
+// Custom Exception Class
+public class InvalidSalaryException extends Exception {
+
+    public InvalidSalaryException(String msg) {
+        super(msg);
+    }
+}
+package task3_exception;
+
+public class PayrollExceptionDemo {
+
+    public static void main(String[] args) {
+
+        try {
+            double salary = -1000;
+
+            if (salary < 0) {
+                throw new InvalidSalaryException("Salary cannot be negative");
+            }
+
+            System.out.println("Salary: " + salary);
+
+        } catch (InvalidSalaryException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
